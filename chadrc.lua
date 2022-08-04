@@ -23,8 +23,12 @@ M.ui = {
   transparency = false,
 }
 
+local pluginConfs = require "custom.plugins.configs"
 M.plugins = {
-   user = require "custom.plugins"
+   user = require "custom.plugins",
+   override = {
+       ["nvim-treesitter/nvim-treesitter"] = pluginConfs.treesitter,
+   },
 }
 
 -- M.plugins = {

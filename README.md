@@ -12,9 +12,6 @@ install_font UbuntuMono
 
 Change font in terminal setting.
 
-
-
-```
 # Install NvChad + custom files
 
 ```
@@ -23,10 +20,9 @@ git clone git@github.com:hugolbz/dotfiles.git ~/.config/nvim/lua/custom
 nvim +PackerSync
 ```
 
-
 # Install support
 
 ```
-nvim +"TSInstall bash c perl python lua make yaml markdown" +"MasonInstall codelldb clangd debugpy pylint python-lsp-server shellcheck"
+nvim +"MasonInstall codelldb clangd debugpy pylint python-lsp-server shellcheck"
 ```
 

@@ -23,6 +23,6 @@ nvim +PackerSync
 # Install support
 
 ```
-nvim +"MasonInstall codelldb clangd debugpy pylint python-lsp-server shellcheck"
+nvim +MasonInstallAll
 ```
 

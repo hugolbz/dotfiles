@@ -28,19 +28,28 @@ M.plugins = {
    user = require "custom.plugins",
    override = {
        ["nvim-treesitter/nvim-treesitter"] = pluginConfs.treesitter,
+       ["williamboman/mason.nvim"] = {
+           ensure_installed = {
+               -- lua stuff
+               "lua-language-server",
+               "stylua",
+
+               -- C/C++
+               "codelldb",
+               "clangd",
+
+               -- python
+               "pylint",
+               "python-lsp-server",
+               "debugpy",
+
+               -- shell
+               "shfmt",
+               "shellcheck",
+           },
+       },
    },
 }
-
--- M.plugins = {
---   override = {},
---   remove = {},
---   user = {},
---   options = {
---     lspconfig = {
---       setup_lspconf = "", -- path of lspconfig file
---     },
---   },
--- }
 
 -- check core.mappings for table structure
 M.mappings = require "custom.mappings"

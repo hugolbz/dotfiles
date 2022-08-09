@@ -16,7 +16,7 @@ return {
         config = function()
             require("todo-comments").setup()
         end,
-    }
+    },
 
         -- use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
         -- use {'nvim-treesitter/nvim-treesitter-textobjects'}
@@ -34,4 +34,10 @@ return {
         --     end,
         -- },
         --
+        ["neovim/nvim-lspconfig"] = {
+            config = function()
+                require "plugins.configs.lspconfig"
+                require "custom.plugins.lspconfig"
+            end,
+        },
 }

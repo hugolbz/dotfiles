@@ -15,6 +15,12 @@ M.treesitter = {
       "yaml",
       "markdown",
    },
+   highlight = {
+       enable = true,
+       disable = function(lang, bufnr) -- Disable in large C++ buffers
+           return (lang == "c" or lang == "cpp") and vim.api.nvim_buf_line_count(bufnr) > 5000
+       end,
+   },
 }
 
 -- M.nvimtree = {
@@ -43,4 +49,16 @@ M.treesitter = {
 --     }
 -- end
 
+-- M.plugins = {
+--     -- enable dashboard
+--     user = {
+--         ["goolord/alpha-nvim"] = {
+--             disable = false,
+--         },
+--     },
+--     -- To remove plugins
+--     remove = {
+--         "NvChad/nvterm",
+--     },
+-- }
 return M

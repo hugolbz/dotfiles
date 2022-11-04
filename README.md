@@ -26,3 +26,12 @@ nvim +PackerSync
 nvim +MasonInstallAll
 ```
 
+# Remote session
+
+```
+REMOTE_MACHINE=
+ssh -x $REMOTE_MACHINE nvim --headless --listen localhost:6789
+ssh -L 6789:localhost:6789 $REMOTE_MACHINE
+qtvim --server=localhost:6789
+```
+Known issue: GuiFont not available, gui font not set even if local ginit.vim

@@ -11,3 +11,16 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+lspconfig["pylsp"].setup {
+    settings = {
+        pylsp = {
+            plugins = {
+                pycodestyle = {
+                    -- ignore = {'W391'},
+                    maxLineLength = 100
+                }
+            }
+        }
+    }
+}

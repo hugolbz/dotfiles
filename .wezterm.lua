@@ -29,8 +29,6 @@ config.default_prog = { '/bin/bash', '-l' }
 config.hide_tab_bar_if_only_one_tab = true
 config.force_reverse_video_cursor = true
 
-config.show_update_window = false
-
 local act = wezterm.action
 config.keys = {
   { key = 'UpArrow', mods = 'SHIFT', action = act.ScrollToPrompt(-1) },

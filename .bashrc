@@ -33,6 +33,7 @@ install_font(){
 
 # git prompt
 [ -f /usr/share/doc/git/contrib/completion/git-prompt.sh ] && source /usr/share/doc/git/contrib/completion/git-prompt.sh
+# [ -f /etc/bash_completion.d/git-prompt ] && source /etc/bash_completion.d/git-prompt
 
 #FZF
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

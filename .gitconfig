@@ -1,0 +1,52 @@
+[alias]
+	s = status -s -b
+	ss = status
+	b = branch
+	bc = branch --contains
+	co = checkout
+	ci = commit
+	sta = stash
+	f = fetch --all --tags
+	m = merge --no-ff
+	t = tag
+	h = show --color
+	d = difftool
+	dc = difftool --cached
+	diff = diff --color
+	dr = diff --color
+	dcr = diff --cached --color
+	stat = diff --stat --color
+	r = rebase
+	re = reset
+	res = reset --soft
+	reh = reset --hard
+	rehu = reset --hard @{upstream}
+	l = log --oneline --decorate --color
+	ll = log --stat --decorate --abbrev-commit --date=relative --color
+	lll = log -p --stat --decorate --abbrev-commit --date=relative --color
+	lg = log --graph --decorate --oneline --color
+	la = log -1 HEAD -- color
+	details = log -n1 -p --format=fuller --color
+	rl = reflog --date=relative
+	short = rev-parse --short
+	unstage = reset HEAD
+	visual = !gitk --all &
+	changes = "!f() { git log --pretty=format:'* %s' $1..$2; }; f"
+[core]
+    editor = nvim
+    preload
+[merge]
+	tool = kdiff3
+[diff]
+	tool = kdiff3
+[push]
+	default = simple
+[branch "master"]
+    mergeoptions = --no-ff
+[pull]
+    ff = only
+[include]
+	path = ~/.gitconfig.inc
+[includeIf "gitdir:~/.dotfiles"]
+	path = ~/.gitconfig_dotfiles.inc
+

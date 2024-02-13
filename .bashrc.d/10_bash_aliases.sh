@@ -1,4 +1,4 @@
-alias gitcfg="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 
 # list stuff
 alias ll='ls -l'
@@ -6,8 +6,6 @@ alias la='ls -a'
 alias l1='ls -1'
 alias lr='ls -rst1'
 alias lr2='ls -rst'
-
-#alias vi="vim"
 
 if  [ `uname -s` == "Linux" ] ; then
     alias grep='grep --color=auto'

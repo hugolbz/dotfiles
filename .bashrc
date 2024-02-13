@@ -5,9 +5,9 @@
 # git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout
 # . bashrc
 # install_font(FiraMono)
-# gitcfg config --local status.showUntrackedFiles no
+# dotfiles config --local status.showUntrackedFiles no
 
-## Install NvCHad :
+## Install NvChad :
 # git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
 # nvim +MasonInstallAll
 #

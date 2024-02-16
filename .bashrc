@@ -1,16 +1,16 @@
 #!/bin/bash
 
-## Bootstrap dotfiles:
-# git clone --bare <git-repo-url> $HOME/.cfg
-# git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout
-# . bashrc
-# install_font(FiraMono)
-# dotfiles config --local status.showUntrackedFiles no
-
-## Install NvChad :
+## Install NvChad (before dotfiles) :
 # git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
 # nvim +MasonInstallAll
-#
+
+## Bootstrap dotfiles:
+# git clone --bare <git-repo-url> $HOME/.dotfiles
+# git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
+# . .bashrc
+# install_font FiraMono
+# dotfiles config --local status.showUntrackedFiles no
+
 ## Update tools
 # curl -L https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -o ~/.local/bin/nvim && chmod u+x  ~/.local/bin/nvim
 

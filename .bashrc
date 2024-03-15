@@ -1,8 +1,7 @@
 #!/bin/bash
 
 ## Install NvChad (before dotfiles) :
-# git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
-# nvim +MasonInstallAll
+# git clone https://github.com/NvChad/starter ~/.config/nvim --depth 1
 
 ## Bootstrap dotfiles:
 # git clone --bare <git-repo-url> $HOME/.dotfiles
@@ -11,8 +10,12 @@
 # install_font FiraMono
 # dotfiles config --local status.showUntrackedFiles no
 
+## Finish nvim install
+# nvim +MasonInstallAll
+
 ## Update tools
 # curl -L https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -o ~/.local/bin/nvim && chmod u+x  ~/.local/bin/nvim
+# curl -L https://github.com/wez/wezterm/releases/download/nightly/WezTerm-nightly-Ubuntu20.04.AppImage -o ~/.local/bin/wezterm && chmod u+x  ~/.local/bin/wezterm
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then

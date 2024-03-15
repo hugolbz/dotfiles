@@ -11,8 +11,8 @@ vim.api.nvim_create_autocmd( "UIEnter", {
     once = true,
     -- callback = function() require "ginit" end -- for ginit.lua instead
     callback = function()
-        vim.cmd('source $HOME/.config/nvim/lua/custom/ginit.vim')
-    end,
+        vim.cmd('source $HOME/.config/nvim/lua/ginit.vim')
+    end
 } )
 
 if vim.g.neovide then
@@ -24,11 +24,6 @@ if vim.g.neovide then
 end
 
 vim.o.shell = "/bin/bash"
-
--- Change default leader
-vim.g.mapleader = ","
-vim.keymap.set("n", " ", "<leader>") -- does not seem to work ?!
-vim.keymap.set("i", "<>", "<Esc>")
 
 vim.opt.breakindent = true --Enable break indent
 vim.opt.ignorecase = true --Case insensitive searching unless /C or capital in search

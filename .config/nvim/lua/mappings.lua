@@ -63,9 +63,9 @@ vim.keymap.del('n', '<S-tab>')
 
 -- tabufline
 map("n", "<leader>k", function()
-    require("nvchad.tabufline").tabuflineNext()
+    require("nvchad.tabufline").next()
 end, { desc = "Goto next buffer"})
 map("n", "<leader>j", function()
-    require("nvchad.tabufline").tabuflinePrev()
+    require("nvchad.tabufline").prev()
 end, { desc = "Goto previous buffer"})
 

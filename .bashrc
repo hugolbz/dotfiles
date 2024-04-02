@@ -1,8 +1,5 @@
 #!/bin/bash
 
-## Install NvChad (before dotfiles) :
-# git clone https://github.com/NvChad/starter ~/.config/nvim --depth 1
-
 ## Bootstrap dotfiles:
 # git clone --bare <git-repo-url> $HOME/.dotfiles
 # git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout

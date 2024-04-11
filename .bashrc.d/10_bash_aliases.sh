@@ -25,6 +25,7 @@ function cheat() {
     curl cht.sh/$1
 }
 
+alias fd='fdfind'
 alias gti='git'
 alias qtvim='nvim-qt --nvim $HOME/.local/bin/nvim --no-ext-tabline --no-ext-popupmenu' 
 alias vim='$HOME/.local/bin/nvim'

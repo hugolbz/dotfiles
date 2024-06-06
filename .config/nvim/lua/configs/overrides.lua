@@ -14,7 +14,7 @@ M.treesitter = {
     "bash",
     "cpp",
     "perl",
-    "latex",
+    -- "latex",
     "proto",
     "make",
     "yaml",

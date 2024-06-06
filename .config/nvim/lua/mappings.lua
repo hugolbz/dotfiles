@@ -69,3 +69,24 @@ map("n", "<leader>j", function()
     require("nvchad.tabufline").prev()
 end, { desc = "Goto previous buffer"})
 
+-- Gitsigns navigation
+map('n', ']c', function()
+    if vim.wo.diff then
+        vim.cmd.normal({']c', bang = true})
+    else
+        require('gitsigns').nav_hunk('next')
+    end
+end,
+    { desc = "Next git hunk" }
+)
+
+map('n', '[c', function()
+    if vim.wo.diff then
+        vim.cmd.normal({'[c', bang = true})
+    else
+        require('gitsigns').nav_hunk('prev')
+    end
+end,
+    { desc = "Previous git hunk" }
+)
+

@@ -15,7 +15,7 @@ config.default_prog = { '/bin/bash', '-l' }
 
 -- Change UI
 config.color_scheme = 'Gogh (Gogh)'
-
+config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.window_padding = {
   left = 0,
   right = 0,

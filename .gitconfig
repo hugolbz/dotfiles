@@ -37,7 +37,7 @@
     editor = nvim
     preload
 [merge]
-	tool = meld
+	tool = kdiff3
     ; try zdiff3 with newer git version
 	conflictStyle = diff3
 [diff]

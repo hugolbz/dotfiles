@@ -68,10 +68,10 @@ local function segments_for_right_status(window, pane)
 
   return {
     cwd,
-    -- window:active_workspace(),
-    wezterm.strftime('%a %b %-d %H:%M'),
-    -- wezterm.hostname(),
     hostname,
+    wezterm.strftime('%a %b %-d %H:%M'),
+    -- window:active_workspace(),
+    -- wezterm.hostname(),
   }
 end
 
@@ -129,32 +129,33 @@ wezterm.on('update-status', function(window, pane)
 end)
 
 local process_icons = {
+  ['bash'] = wezterm.nerdfonts.dev_terminal,
+  ['cargo'] = wezterm.nerdfonts.dev_rust,
+  ['curl'] = wezterm.nerdfonts.mdi_flattr,
   ['docker'] = wezterm.nerdfonts.linux_docker,
   ['docker-compose'] = wezterm.nerdfonts.linux_docker,
-  ['btm'] = '',
-  ['psql'] = '󱤢',
-  ['usql'] = '󱤢',
-  ['ssh'] = wezterm.nerdfonts.md_remote_desktop,
-  ['ssh-add'] = wezterm.nerdfonts.md_remote_desktop,
-  ['nvim'] = wezterm.nerdfonts.custom_neovim,
-  ['vim'] = wezterm.nerdfonts.dev_vim,
+  ['gh'] = wezterm.nerdfonts.dev_github_badge,
+  ['git'] = wezterm.nerdfonts.dev_git,
+  ['gitui'] = wezterm.nerdfonts.dev_git,
+  ['go'] = wezterm.nerdfonts.seti_go,
+  ['htop'] = wezterm.nerdfonts.mdi_chart_donut_variant,
+  ['lazydocker'] = wezterm.nerdfonts.linux_docker,
+  ['lua'] = wezterm.nerdfonts.seti_lua,
   ['make'] = wezterm.nerdfonts.seti_makefile,
   ['node'] = wezterm.nerdfonts.mdi_hexagon,
-  ['go'] = wezterm.nerdfonts.seti_go,
-  ['python3'] = '',
-  ['Python'] = '',
-  ['zsh'] = wezterm.nerdfonts.dev_terminal,
-  ['bash'] = wezterm.nerdfonts.cod_terminal_bash,
-  ['htop'] = wezterm.nerdfonts.mdi_chart_donut_variant,
-  ['cargo'] = wezterm.nerdfonts.dev_rust,
-  ['sudo'] = wezterm.nerdfonts.fa_hashtag,
-  ['lazydocker'] = wezterm.nerdfonts.linux_docker,
-  ['git'] = wezterm.nerdfonts.dev_git,
-  ['lua'] = wezterm.nerdfonts.seti_lua,
-  ['wget'] = wezterm.nerdfonts.mdi_arrow_down_box,
-  ['curl'] = wezterm.nerdfonts.mdi_flattr,
-  ['gh'] = wezterm.nerdfonts.dev_github_badge,
+  ['nvim'] = wezterm.nerdfonts.custom_neovim,
+  ['psql'] = '󱤢',
+  ['python3'] = wezterm.nerdfonts.custom_neovim,
+  ['python3.8'] = wezterm.nerdfonts.custom_neovim,
   ['ruby'] = wezterm.nerdfonts.cod_ruby,
+  ['ssh'] = wezterm.nerdfonts.md_remote_desktop,
+  ['ssh-add'] = wezterm.nerdfonts.md_remote_desktop,
+  ['sudo'] = wezterm.nerdfonts.fa_hashtag,
+  ['tig'] = wezterm.nerdfonts.dev_git,
+  ['usql'] = '󱤢',
+  ['vim'] = wezterm.nerdfonts.dev_vim,
+  ['wget'] = wezterm.nerdfonts.mdi_arrow_down_box,
+  ['zsh'] = wezterm.nerdfonts.dev_terminal,
 }
 local function get_current_working_dir(tab)
   local current_dir = tab.active_pane and tab.active_pane.current_working_dir or { file_path = '' }

@@ -39,19 +39,19 @@ end, { desc = "toggle comment"})
 
 -- Telescope
 -- find
-map("n", "<leader>ff", "<cmd> Telescope find_files <CR>", { desc = "  find files" })
-map("n", "<leader>fa", "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", { desc = "  find all" })
+map("n", "<leader>ff", "<cmd> Telescope find_files <CR>", { desc = " find files" })
+map("n", "<leader>fa", "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", { desc = " find all" })
 map("n", "<leader>fw", "<cmd> Telescope live_grep <CR>", { desc = "   live grep" })
 map("n", "<leader>fg", "<cmd> Telescope live_grep <CR>", { desc = "   live grep" })
-map("n", "<leader>fb", "<cmd> Telescope buffers <CR>", { desc = "  find buffers" })
+map("n", "<leader>fb", "<cmd> Telescope buffers <CR>", { desc = " find buffers" })
 map("n", "<leader>fh", "<cmd> Telescope help_tags <CR>", { desc = "?  help page" })
-map("n", "<leader>fo", "<cmd> Telescope oldfiles <CR>", { desc = "   find oldfiles" })
-map("n", "<leader>fs", "<cmd> Telescope grep_string <CR>", { desc = "   find string under cursor" })
-map("n", "<leader>fr", "<cmd> Telescope resume <CR>", { desc = "   resume last search" })
+map("n", "<leader>fo", "<cmd> Telescope oldfiles <CR>", { desc = " find oldfiles" })
+map("n", "<leader>fs", "<cmd> Telescope grep_string <CR>", { desc = " find string under cursor" })
+map("n", "<leader>fr", "<cmd> Telescope resume <CR>", { desc = " resume last search" })
 map("n", "<leader>tk", "<cmd> Telescope keymaps <CR>", { desc = "   show keys" })
 -- git
-map("n", "<leader>fc", "<cmd> Telescope git_commits <CR>", { desc = "   git commits" })
-map("n", "<leader>ft", "<cmd> Telescope git_status <CR>", { desc = "  git status" })
+map("n", "<leader>fc", "<cmd> Telescope git_commits <CR>", { desc = " git commits" })
+map("n", "<leader>ft", "<cmd> Telescope git_status <CR>", { desc = " git status" })
 -- pick a hidden term
 map("n", "<leader>pt", "<cmd> Telescope terms <CR>", { desc = "   pick hidden term" })
 -- theme switcher
@@ -70,6 +70,9 @@ map("n", "<leader>j", function()
 end, { desc = "Goto previous buffer"})
 
 -- Gitsigns navigation
+
+map("n", "<leader>rh", "<cmd> Gitsigns reset_hunk <CR>", { desc = "   reset hunk" })
+map("n", "<leader>gb", "<cmd> Gitsigns blame_line <CR>", { desc = "   blame line" })
 map('n', ']c', function()
     if vim.wo.diff then
         vim.cmd.normal({']c', bang = true})

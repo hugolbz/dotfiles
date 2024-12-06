@@ -6,15 +6,6 @@
 --   command = "tabdo wincmd =",
 -- })
 
--- If nvim-qt, call ginit.vim
-vim.api.nvim_create_autocmd( "UIEnter", {
-    once = true,
-    -- callback = function() require "ginit" end -- for ginit.lua instead
-    callback = function()
-        vim.cmd('source $HOME/.config/nvim/lua/ginit.vim')
-    end
-} )
-
 if vim.g.neovide then
     vim.g.neovide_scroll_animation_length = 0.1
     vim.g.neovide_remember_window_size = true

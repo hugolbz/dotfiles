@@ -11,7 +11,7 @@
 # nvim +MasonInstallAll
 
 ## Update tools
-# curl -L https://github.com/neovim/neovim/releases/download/stable/nvim.appimage -o ~/.local/bin/nvim && chmod u+x  ~/.local/bin/nvim
+# curl -L https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.appimage -o ~/.local/bin/nvim && chmod u+x  ~/.local/bin/nvim
 # curl -L https://github.com/wez/wezterm/releases/download/nightly/WezTerm-nightly-Ubuntu20.04.AppImage -o ~/.local/bin/wezterm && chmod u+x  ~/.local/bin/wezterm
 
 # Source global definitions

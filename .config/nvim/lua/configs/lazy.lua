@@ -15,7 +15,7 @@ return {
     rtp = {
       disabled_plugins = {
         "2html_plugin",
-        "tohtml",
+        -- "tohtml",
         "getscript",
         "getscriptPlugin",
         "gzip",

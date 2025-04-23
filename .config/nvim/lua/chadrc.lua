@@ -1,23 +1,26 @@
+-- This file needs to have same structure as nvconfig.lua 
+-- https://github.com/NvChad/ui/blob/v3.0/lua/nvconfig.lua
+-- Please read that file to know all available options :( 
+
 ---@type ChadrcConfig
 local M = {}
 
--- Path to overriding theme and highlights files
-local highlights = require "highlights"
-
-M.ui = {
+M.base46 = {
   theme = "tokyonight",
   theme_toggle = { "tokyonight", "blossom_light" },
 
-  statusline = {
-    separator_style = "arrow",
-  },
-  hl_override = highlights.override,
-  hl_add = highlights.add,
+	-- hl_override = {
+	-- 	Comment = { italic = true },
+	-- 	["@comment"] = { italic = true },
+	-- },
 }
 
--- M.plugins = "plugins"
-
--- check core.mappings for table structure
--- M.mappings = require "mappings"
+-- M.nvdash = { load_on_startup = true }
+M.ui = {
+      statusline = {
+        separator_style = "arrow",
+         -- lazyload = false
+     }
+}
 
 return M

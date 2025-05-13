@@ -63,10 +63,33 @@ vim.opt.colorcolumn="+1"
 vim.opt.icm="nosplit"
 
 -- Folding
-vim.opt.foldlevel=20
--- vim.opt.foldmethod="indent"
-vim.opt.foldmethod="expr" -- Does not work well with c?
-vim.opt.foldexpr="nvim_treesitter#foldexpr()"
+-- Defer for big files, see https://github.com/nvim-treesitter/nvim-treesitter/issues/1100
+-- Default to treesitter folding
+vim.api.nvim_create_autocmd("BufReadPost", {
+    callback = function()
+        vim.defer_fn(function()
+            vim.opt.foldmethod = "expr"
+            vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            -- vim.opt.foldcolumn = "1"
+            -- opt.foldtext = ""
+            -- vim.opt.foldnestmax = 3
+            vim.opt.foldlevel = 99
+            -- vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
+            -- vim.opt.foldlevelstart = 99
+        end, 100)
+    end,
+})
+-- Prefer LSP folding if client supports it
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+         local client = vim.lsp.get_client_by_id(args.data.client_id)
+         if client:supports_method('textDocument/foldingRange') then
+             local win = vim.api.nvim_get_current_win()
+             vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+             -- vim.wo[win][0].foldtext = 'v:lua.vim.lsp.foldtext()'
+        end
+    end,
+ })
 
 -- autoread. See https://stackoverflow.com/questions/2490227/how-does-vims-autoread-work
 vim.cmd [[

@@ -1,4 +1,10 @@
 alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+alias gti='git'
+if [ -f /usr/share/bash-completion/completions/git ]; then
+	. /usr/share/bash-completion/completions/git
+    __git_complete dotfiles __git_main
+    __git_complete gti __git_main
+fi
 
 # list stuff
 alias ll='ls -l'
@@ -26,8 +32,8 @@ function cheat() {
 }
 
 alias fd='fdfind'
-alias gti='git'
 alias qtvim='nvim-qt --nvim $HOME/.local/bin/nvim --no-ext-tabline --no-ext-popupmenu' 
 alias vim='$HOME/.local/bin/nvim'
 alias neovim='$HOME/.local/bin/nvim'
 alias wim='wezterm start -- nvim'
+alias rga='rg --no-ignore --hidden'

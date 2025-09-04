@@ -2,22 +2,28 @@ local M = {}
 
 M.treesitter = {
     ensure_installed = {
-        "vim",
-        "lua",
-        "html",
-        "css",
-        "javascript",
+        "bash",
         "c",
+        "cmake",
+        "cpp",
+        "css",
+        "doxygen",
+        "git_config", "gitcommit", "git_rebase", "gitignore", "gitattributes",
+        "html",
+        "javascript",
+        "lua",
+        "make",
         "markdown",
         "markdown_inline",
-        "python",
-        "bash",
-        "cpp",
         "perl",
-        -- "latex",
         "proto",
-        "make",
+        "python",
+        "robot",
+        "ssh_config",
+        "typst",
+        "vim",
         "yaml",
+        -- "latex",
     },
     indent = {
         enable = true,
@@ -51,6 +57,9 @@ M.mason = {
         -- shell
         "shfmt",
         "shellcheck",
+
+        -- typst
+        "tinymist",
     },
 }
 

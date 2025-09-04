@@ -1,8 +1,7 @@
--- vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
--- vim.g.mapleader = " "
+-- vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/" -- TODO why different from 'starter'
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/nvchad/base46/"
-vim.g.mapleader = ","      -- Make sure to set `mapleader` before lazy so your mappings are correct
-vim.g.maplocalleader = " " -- Same for `maplocalleader`
+vim.g.mapleader = ","
+vim.g.maplocalleader = " "
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
@@ -33,7 +32,7 @@ dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
 require "options"
-require "nvchad.autocmds"
+require "autocmds"
 
 vim.schedule(function()
     require "mappings"

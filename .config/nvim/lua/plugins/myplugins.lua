@@ -65,10 +65,10 @@ local plugins = {
     -- },
 
     -- Uncomment if you want to re-enable which-key
-    -- {
-    --   "folke/which-key.nvim",
-    --   enabled = true,
-    -- },
+  {
+    "folke/which-key.nvim",
+    enabled = true,
+  },
 }
 
 return plugins

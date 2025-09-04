@@ -1,22 +1,11 @@
-local on_attach = require("nvchad.configs.lspconfig").on_attach
-local capabilities = require("nvchad.configs.lspconfig").capabilities
+require("nvchad.configs.lspconfig").defaults()
 
-local lspconfig = require "lspconfig"
+local servers = { "lua_ls", "tinymist", "clangd", "pylsp" }
+vim.lsp.enable(servers)
 
--- if you just want default config for the servers then put them in a table
--- consider "bashls", needs npm
-local servers = { "lua_ls", "tinymist" }
+-- read :h vim.lsp.config for changing options of lsp servers
 
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-end
-
-lspconfig["pylsp"].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
+vim.lsp.config.pylsp = {
     settings = {
         pylsp = {
             plugins = {
@@ -29,15 +18,14 @@ lspconfig["pylsp"].setup {
     }
 }
 
-lspconfig["clangd"].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
+vim.lsp.config.clangd = {
     cmd = {
-        "clangd",
-        "--clang-tidy",
-        "--background-index",
+        'clangd',
+        '--clang-tidy',
+        '--background-index',
         "--header-insertion=never",
-        "--offset-encoding=utf-16",
+        '--offset-encoding=utf-16',
     },
+    -- root_markers = { '.clangd', 'compile_commands.json' },
+    -- filetypes = { 'c', 'cpp' },
 }
-

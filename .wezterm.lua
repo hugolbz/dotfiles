@@ -49,7 +49,7 @@ config.visual_bell = {
 }
 
 -- Scrolling
-config.scrollback_lines = 10000
+config.scrollback_lines = 30000
 local act = wezterm.action
 config.keys = {
   { key = 'UpArrow', mods = 'SHIFT', action = act.ScrollToPrompt(-1) },

@@ -19,7 +19,7 @@ end
 vim.o.shell = "/bin/bash"
 
 vim.opt.breakindent = true --Enable break indent
-vim.opt.ignorecase = true --Case insensitive searching unless /C or capital in search
+vim.opt.ignorecase = true  --Case insensitive searching unless /C or capital in search
 
 -- Indenting
 vim.opt.expandtab = true
@@ -28,7 +28,7 @@ vim.opt.smartindent = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 
--- :find path (:set path to display) 
+-- :find path (:set path to display)
 -- opt.path:remove "/usr/include"
 vim.opt.path:append "**"
 -- vim.cmd [[set path=.,,,$PWD/**]] -- Alternatively set the path
@@ -39,7 +39,7 @@ vim.opt.wildignore:append "**/doc/doxygen/*"
 
 -- Better diff
 -- vim.o.diffopt = "internal,filler,closeoff,linematch:60"
-vim.opt.diffopt="internal,filler,closeoff,indent-heuristic,linematch:60,algorithm:histogram"
+vim.opt.diffopt = "internal,filler,closeoff,indent-heuristic,linematch:60,algorithm:histogram"
 
 -- Highlight on yank
 vim.cmd [[
@@ -57,10 +57,10 @@ vim.opt.visualbell = true
 
 vim.opt.textwidth = 100
 -- set a column at position 100
-vim.opt.colorcolumn="+1" 
+vim.opt.colorcolumn = "+1"
 
 -- Show s/// as you type
-vim.opt.icm="nosplit"
+vim.opt.icm = "nosplit"
 
 -- Folding
 -- Defer for big files, see https://github.com/nvim-treesitter/nvim-treesitter/issues/1100
@@ -82,14 +82,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 -- Prefer LSP folding if client supports it
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
-         local client = vim.lsp.get_client_by_id(args.data.client_id)
-         if client:supports_method('textDocument/foldingRange') then
-             local win = vim.api.nvim_get_current_win()
-             vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
-             -- vim.wo[win][0].foldtext = 'v:lua.vim.lsp.foldtext()'
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client:supports_method('textDocument/foldingRange') then
+            local win = vim.api.nvim_get_current_win()
+            vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+            -- vim.wo[win][0].foldtext = 'v:lua.vim.lsp.foldtext()'
         end
     end,
- })
+})
 
 -- autoread. See https://stackoverflow.com/questions/2490227/how-does-vims-autoread-work
 vim.cmd [[
@@ -111,10 +111,9 @@ vim.cmd [[
 
 -- Change makeprg to use bear
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = {"c", "cpp"},
-  callback = function()
-    vim.opt_local.makeprg = "bear make"
-    vim.opt_local.commentstring = "// %s"
-  end,
+    pattern = { "c", "cpp" },
+    callback = function()
+        vim.opt_local.makeprg = "bear make"
+        vim.opt_local.commentstring = "// %s"
+    end,
 })
-

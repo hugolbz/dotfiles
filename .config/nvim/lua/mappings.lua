@@ -5,7 +5,7 @@ local map = vim.keymap.set
 map("n", ";", ":", { desc = "CMD enter command mode" })
 
 map("n", "<leader>fm", function()
-  require("conform").format()
+    require("conform").format()
 end, { desc = "File Format with conform" })
 
 map("i", "jk", "<ESC>", { desc = "Escape insert mode" })
@@ -24,13 +24,13 @@ map("n", ",", " ")
 -- Spell
 map("n", "<leader>lf", "<cmd> setlocal spell spelllang=fr<cr>", { desc = "  Change lang to fr" })
 map("n", "<leader>le", "<cmd> setlocal spell spelllang=en<cr>", { desc = "  Change lang to en" })
-map("n", "<leader>ln", "<cmd> setlocal spell spelllang=<cr>",   { desc = "  Turn off spell" })
+map("n", "<leader>ln", "<cmd> setlocal spell spelllang=<cr>", { desc = "  Turn off spell" })
 
 -- Comment
 -- toggle comment in both modes
 map("n", "<leader>:", function()
     require("Comment.api").toggle.linewise.current()
-end, { desc = "toggle comment"})
+end, { desc = "toggle comment" })
 -- TODO
 -- map("v", "<leader>:", function()
 --       "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>"
@@ -64,32 +64,31 @@ vim.keymap.del('n', '<S-tab>')
 -- tabufline
 map("n", "<leader>k", function()
     require("nvchad.tabufline").next()
-end, { desc = "Goto next buffer"})
+end, { desc = "Goto next buffer" })
 map("n", "<leader>j", function()
     require("nvchad.tabufline").prev()
-end, { desc = "Goto previous buffer"})
+end, { desc = "Goto previous buffer" })
 
 -- Gitsigns navigation
 
 map("n", "<leader>rh", "<cmd> Gitsigns reset_hunk <CR>", { desc = "   reset hunk" })
 map("n", "<leader>gb", "<cmd> Gitsigns blame_line <CR>", { desc = "   blame line" })
 map('n', ']c', function()
-    if vim.wo.diff then
-        vim.cmd.normal({']c', bang = true})
-    else
-        require('gitsigns').nav_hunk('next')
-    end
-end,
+        if vim.wo.diff then
+            vim.cmd.normal({ ']c', bang = true })
+        else
+            require('gitsigns').nav_hunk('next')
+        end
+    end,
     { desc = "Next git hunk" }
 )
 
 map('n', '[c', function()
-    if vim.wo.diff then
-        vim.cmd.normal({'[c', bang = true})
-    else
-        require('gitsigns').nav_hunk('prev')
-    end
-end,
+        if vim.wo.diff then
+            vim.cmd.normal({ '[c', bang = true })
+        else
+            require('gitsigns').nav_hunk('prev')
+        end
+    end,
     { desc = "Previous git hunk" }
 )
-

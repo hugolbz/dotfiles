@@ -36,6 +36,7 @@
 [core]
     editor = nvim
     preload
+	excludesfile = ~/.gitignore
 [merge]
 	tool = kdiff3
     ; try zdiff3 with newer git version

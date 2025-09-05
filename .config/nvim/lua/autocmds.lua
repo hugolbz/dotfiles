@@ -1,6 +1,6 @@
 require "nvchad.autocmds"
 
--- local autocmd = vim.api.nvim_create_autocmd
+local autocmd = vim.api.nvim_create_autocmd
 
 -- Auto resize panes when resizing nvim window
 -- autocmd("VimResized", {
@@ -19,7 +19,7 @@ vim.cmd [[
 -- Folding
 -- Defer for big files, see https://github.com/nvim-treesitter/nvim-treesitter/issues/1100
 -- Default to treesitter folding
-vim.api.nvim_create_autocmd("BufReadPost", {
+autocmd("BufReadPost", {
     callback = function()
         vim.defer_fn(function()
             vim.opt.foldmethod = "expr"
@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 -- Prefer LSP folding if client supports it
-vim.api.nvim_create_autocmd('LspAttach', {
+autocmd('LspAttach', {
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         if client:supports_method('textDocument/foldingRange') then
@@ -46,10 +46,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- Autoformat on save
-vim.api.nvim_create_autocmd("LspAttach", {
+autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("lsp", { clear = true }),
     callback = function(args)
-        vim.api.nvim_create_autocmd("BufWritePre", {
+        autocmd("BufWritePre", {
             buffer = args.buf,
             callback = function()
                 vim.lsp.buf.format { async = false, id = args.data.client_id }
@@ -64,12 +64,3 @@ set autoread " neovim default
 au FocusGained,BufEnter * :silent! !
 au FocusLost,WinLeave * :silent! w
 ]]
-
--- Change makeprg to use bear
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "c", "cpp" },
-    callback = function()
-        vim.opt_local.makeprg = "bear -- make"
-        vim.opt_local.commentstring = "// %s"
-    end,
-})

@@ -14,10 +14,12 @@
 # WEZTERM_SHELL_SKIP_USER_VARS - disable user vars that capture information
 #                                about running programs
 
-if [ "${TERM_PROGRAM}" != "WezTerm" ]
-then
-  return 0
-fi
+# Does not work over ssh!
+# if [ "${TERM_PROGRAM}" != "WezTerm" ]
+# then
+#   return 0
+# fi
+
 
 # shellcheck disable=SC2166
 if [ -z "${BASH_VERSION-}" -a -z "${ZSH_NAME-}" ] ; then
@@ -576,4 +578,3 @@ if [[ -z "${WEZTERM_SHELL_SKIP_CWD-}" ]] ; then
 fi
 
 true
-

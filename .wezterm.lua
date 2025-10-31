@@ -67,9 +67,9 @@ local function segments_for_right_status(window, pane)
     end
 
     return {
-        cwd,
-        hostname,
-        wezterm.strftime('%a %b %-d %H:%M'),
+        string.format(' %s  %s ', wezterm.nerdfonts.md_folder, cwd),
+        string.format(' %s  %s ', wezterm.nerdfonts.md_monitor, hostname),
+        string.format(' %s  %s ', wezterm.nerdfonts.md_calendar_clock, wezterm.strftime('%a %b %-d %H:%M')),
         -- window:active_workspace(),
         -- wezterm.hostname(),
     }
@@ -145,14 +145,14 @@ local process_icons = {
     ['node'] = wezterm.nerdfonts.mdi_hexagon,
     ['nvim'] = wezterm.nerdfonts.custom_neovim,
     ['psql'] = '󱤢',
-    ['python3'] = wezterm.nerdfonts.custom_neovim,
-    ['python3.8'] = wezterm.nerdfonts.custom_neovim,
+    ['python3'] = wezterm.nerdfonts.dev_python,
     ['ruby'] = wezterm.nerdfonts.cod_ruby,
     ['ssh'] = wezterm.nerdfonts.md_remote_desktop,
     ['ssh-add'] = wezterm.nerdfonts.md_remote_desktop,
     ['sudo'] = wezterm.nerdfonts.fa_hashtag,
     ['tig'] = wezterm.nerdfonts.dev_git,
     ['usql'] = '󱤢',
+    ['uv'] = wezterm.nerdfonts.dev_python,
     ['vim'] = wezterm.nerdfonts.dev_vim,
     ['wget'] = wezterm.nerdfonts.mdi_arrow_down_box,
     ['zsh'] = wezterm.nerdfonts.dev_terminal,
@@ -173,8 +173,9 @@ local function get_process(tab)
     end
 
     local process_name = string.gsub(tab.active_pane.foreground_process_name, '(.*[/\\])(.*)', '%2')
-    if string.find(process_name, 'kubectl') then
-        process_name = 'kubectl'
+    process_name = string.gsub(process_name, ".exe", "")
+    if string.find(process_name, 'python3') then
+        process_name = 'python3'
     end
 
     return process_icons[process_name] or string.format('[%s]', process_name)
@@ -196,7 +197,7 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
     })
 
     local process = get_process(tab)
-    local title = process and string.format(' %s  %s ', cwd, process) or ' [?] '
+    local title = string.format(' %s  %s ', cwd, process) or '[?]'
 
     if has_unseen_output then
         return {

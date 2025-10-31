@@ -13,7 +13,7 @@
 ## Update tools
 # curl -L https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.appimage -o ~/.local/bin/nvim && chmod u+x  ~/.local/bin/nvim
 # For old linux systems:
-# curl -L https://github.com/neovim/neovim-releases/releases/download/v0.11.3/nvim-linux-x86_64.appimage -o ~/.local/bin/nvim && chmod u+x  ~/.local/bin/nvim
+# curl -L https://github.com/neovim/neovim-releases/releases/download/v0.11.4/nvim-linux-x86_64.appimage -o ~/.local/bin/nvim && chmod u+x  ~/.local/bin/nvim
 #
 # curl -L https://github.com/wez/wezterm/releases/download/nightly/WezTerm-nightly-Ubuntu20.04.AppImage -o ~/.local/bin/wezterm && chmod u+x  ~/.local/bin/wezterm
 

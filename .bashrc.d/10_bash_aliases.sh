@@ -31,9 +31,10 @@ function cheat() {
     curl cht.sh/$1
 }
 
-alias fd='fdfind'
 alias qtvim='nvim-qt --nvim $HOME/.local/bin/nvim --no-ext-tabline --no-ext-popupmenu' 
 alias vim='$HOME/.local/bin/nvim'
 alias neovim='$HOME/.local/bin/nvim'
 alias wim='wezterm start -- nvim'
 alias rga='rg --no-ignore --hidden'
+alias fda='fd --no-ignore --hidden'
+alias clip='xsel --clipboard' # Copy to/paste from clipboard

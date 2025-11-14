@@ -3,6 +3,7 @@ local M = {}
 M.treesitter = {
     ensure_installed = {
         "bash",
+        "bitbake",
         "c",
         "cmake",
         "cpp",
@@ -20,6 +21,7 @@ M.treesitter = {
         "python",
         "robot",
         "ssh_config",
+        "tcl",
         "typst",
         "vim",
         "yaml",

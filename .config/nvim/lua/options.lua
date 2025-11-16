@@ -51,7 +51,7 @@ vim.opt.icm = "nosplit"
 
 -- Spell
 vim.opt.spell = true
-vim.opt.spelllang = 'en'
+vim.opt.spelllang = {'en', 'fr'}
 vim.opt.spellsuggest = '6'
 vim.cmd [[
   au TermOpen * setlocal nospell

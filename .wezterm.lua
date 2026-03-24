@@ -55,7 +55,9 @@ config.keys = {
     { key = 'UpArrow',   mods = 'SHIFT', action = act.ScrollToPrompt(-1) },
     { key = 'DownArrow', mods = 'SHIFT', action = act.ScrollToPrompt(1) },
 }
-
+config.set_environment_variables = {
+  COLORTERM = 'truecolor', -- Some program (opencode) relies on this being set
+}
 -- status
 local function segments_for_right_status(window, pane)
     local cwd = ""
@@ -134,6 +136,7 @@ local process_icons = {
     ['curl'] = wezterm.nerdfonts.mdi_flattr,
     ['docker'] = wezterm.nerdfonts.linux_docker,
     ['docker-compose'] = wezterm.nerdfonts.linux_docker,
+    ['gdb'] = wezterm.nerdfonts.dev_github_badge,
     ['gh'] = wezterm.nerdfonts.dev_github_badge,
     ['git'] = wezterm.nerdfonts.dev_git,
     ['gitui'] = wezterm.nerdfonts.dev_git,
@@ -144,6 +147,7 @@ local process_icons = {
     ['make'] = wezterm.nerdfonts.seti_makefile,
     ['node'] = wezterm.nerdfonts.mdi_hexagon,
     ['nvim'] = wezterm.nerdfonts.custom_neovim,
+    ['opencode'] = wezterm.nerdfonts.cod_hubot,
     ['psql'] = '󱤢',
     ['python3'] = wezterm.nerdfonts.dev_python,
     ['ruby'] = wezterm.nerdfonts.cod_ruby,
@@ -155,6 +159,7 @@ local process_icons = {
     ['uv'] = wezterm.nerdfonts.dev_python,
     ['vim'] = wezterm.nerdfonts.dev_vim,
     ['wget'] = wezterm.nerdfonts.mdi_arrow_down_box,
+    ['wezterm'] = wezterm.nerdfonts.dev_terminal,
     ['zsh'] = wezterm.nerdfonts.dev_terminal,
 }
 local function get_current_working_dir(tab)

@@ -40,8 +40,8 @@ end, { desc = "toggle comment" })
 -- Telescope
 -- find
 map("n", "<leader>ff", "<cmd> Telescope find_files <CR>", { desc = " find files" })
-map("n", "<leader>fa", "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", { desc = " find all" })
-map("n", "<leader>fw", "<cmd> Telescope live_grep <CR>", { desc = "   live grep" })
+map("n", "<leader>fa", "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", { desc = " find all files" })
+map("n", "<leader>fw", "<cmd> Telescope live_grep follow=true no_ignore=true hidden=true <CR>", { desc = "   live grep all" })
 map("n", "<leader>fg", "<cmd> Telescope live_grep <CR>", { desc = "   live grep" })
 map("n", "<leader>fb", "<cmd> Telescope buffers <CR>", { desc = " find buffers" })
 map("n", "<leader>fh", "<cmd> Telescope help_tags <CR>", { desc = "?  help page" })

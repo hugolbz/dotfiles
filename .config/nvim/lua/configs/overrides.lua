@@ -8,6 +8,7 @@ M.treesitter = {
         "cmake",
         "cpp",
         "css",
+        "devicetree",
         "doxygen",
         "git_config", "gitcommit", "git_rebase", "gitignore", "gitattributes",
         "html",

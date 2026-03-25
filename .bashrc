@@ -79,3 +79,8 @@ if [ -d ~/.bash_completion.d ]; then
     done
 fi
 
+function ssh-start-agent {
+    echo "Initialising new SSH agent..."
+    eval `ssh-agent`
+    ssh-add
+}

@@ -1,2 +1,4 @@
 .bashrc.d/99*
 .nvim.lua
+*.swp
+*~

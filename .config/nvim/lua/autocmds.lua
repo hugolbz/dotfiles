@@ -47,7 +47,7 @@ autocmd('LspAttach', {
 
 -- Autoformat on save
 autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("lsp", { clear = true }),
+    group = vim.api.nvim_create_augroup("lsp_format", { clear = true }),
     callback = function(args)
         autocmd("BufWritePre", {
             buffer = args.buf,

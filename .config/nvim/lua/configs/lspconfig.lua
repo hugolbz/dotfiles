@@ -4,19 +4,19 @@ local servers = { "lua_ls", "tinymist", "clangd", "ruff", "pylsp" }
 
 -- read :h vim.lsp.config for changing options of lsp servers
 
--- Line length is set in pyproject.toml
-vim.lsp.config.ruff = {
+-- Line length is set in pyproject.toml, keep default config
+-- vim.lsp.config.ruff = {
     --     cmd = {
     --         'ruff',
     --         'server',
     --         '--config', 'line-length=100',
     --     },
-    init_options = {
-        settings = {
+    -- init_options = {
+        -- settings = {
             -- logLevel = 'debug',
-        }
-    }
-}
+        -- }
+    -- }
+-- }
 
 vim.lsp.config.pylsp = {
     settings = {

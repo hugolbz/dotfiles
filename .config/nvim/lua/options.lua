@@ -77,3 +77,8 @@ end)()
 -- Create swap files in current dir (vim default), instead of $XDG_STATE_HOME
 -- (avoid collision when $HOME is on NFS and working on different machines)
 vim.opt.directory = '.'
+
+-- Backups
+vim.opt.backup = true
+vim.opt.backupdir = vim.fn.expand("~/.local/state/nvim/backup/")
+vim.opt.backupskip = "*.tmp"

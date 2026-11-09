@@ -42,3 +42,7 @@ alias wim='wezterm start -- nvim'
 alias rga='rg --no-ignore --hidden'
 alias fda='fd --no-ignore --hidden'
 alias clip='xsel --clipboard' # Copy to/paste from clipboard
+
+# Run a 2nd separate instance of opencode
+alias opencode2='XDG_DATA_HOME=/home/hl215844/opencode_instance2/data XDG_STATE_HOME=/home/hl215844/opencode_instance2/state XDG_CACHE_HOME=/home/hl215844/opencode_instance2/cache opencode'
+complete -F _opencode opencode2

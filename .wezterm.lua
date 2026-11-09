@@ -23,8 +23,24 @@ end
 -- Slightly transparent and blurred background
 config.window_background_opacity = 0.99
 
-config.color_scheme = 'Tokyo Night'
--- config.color_scheme = 'Gogh (Gogh)'
+-- Live light/dark scheme switching based on the OS appearance. WezTerm detects
+-- appearance changes and reloads this config, so the scheme stays in sync.
+-- wezterm.gui is not available to the mux server, so default to dark there.
+local function get_appearance()
+    if wezterm.gui then
+        return wezterm.gui.get_appearance()
+    end
+    return 'Dark'
+end
+
+local function scheme_for_appearance(appearance)
+    if appearance:find('Dark') then
+        return 'Tokyo Night'
+    end
+    return 'Tokyo Night Day'
+end
+
+config.color_scheme = scheme_for_appearance(get_appearance())
 -- config.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
 config.window_decorations = "RESIZE"
 
@@ -62,8 +78,34 @@ config.keys = {
     { key = 'DownArrow', mods = 'SHIFT', action = act.ScrollToPrompt(1) },
 }
 config.set_environment_variables = {
-  COLORTERM = 'truecolor', -- Some program (opencode) relies on this being set
+    COLORTERM = 'truecolor', -- Some program (opencode) relies on this being set
 }
+-- Pick per-host accent colors from the active scheme's resolved palette. The
+-- top bar is always dark regardless of light/dark mode, so we always use the
+-- bright variants of the active scheme for good contrast. Falls back to the
+-- ansi set if a scheme has no brights defined.
+local function host_palette_for(resolved_palette)
+    local base = resolved_palette and (resolved_palette.brights or resolved_palette.ansi)
+    if not base then
+        return nil
+    end
+    return base
+end
+
+-- Deterministic per-hostname color derived from a hash of the hostname, using
+-- a palette taken from the active theme's resolved palette instead of
+-- hardcoded hex values. Returns nil when no palette is available.
+local function hostname_color(host, palette)
+    if host == '' or not palette then
+        return nil
+    end
+    local h = 0
+    for i = 1, #host do
+        h = (h * 31 + string.byte(host, i)) % 9973
+    end
+    return palette[(h % #palette) + 1]
+end
+
 -- status
 local function segments_for_right_status(window, pane)
     local cwd = ""
@@ -74,9 +116,13 @@ local function segments_for_right_status(window, pane)
         hostname = cwd_uri.host
     end
 
+    -- Per-host accents always use the active scheme's brights, since the
+    -- top/status bar stays dark in both light and dark mode.
+    local host_palette = host_palette_for(window:effective_config().resolved_palette)
+
     return {
         string.format(' %s  %s ', wezterm.nerdfonts.md_folder, cwd),
-        string.format(' %s  %s ', wezterm.nerdfonts.md_monitor, hostname),
+        { text = string.format(' %s  %s ', wezterm.nerdfonts.md_monitor, hostname), color = hostname_color(hostname, host_palette) },
         string.format(' %s  %s ', wezterm.nerdfonts.md_calendar_clock, wezterm.strftime('%a %b %-d %H:%M')),
         -- window:active_workspace(),
         -- wezterm.hostname(),
@@ -98,11 +144,13 @@ wezterm.on('update-status', function(window, pane)
     -- darker/lighter depending on whether we're on a dark/light colour
     -- scheme. Let's establish the "from" and "to" bounds of our gradient.
     local gradient_to, gradient_from = bg
-    -- if wezterm.gui.get_appearance():find("Dark") then
-    gradient_from = gradient_to:lighten(0.2)
-    -- else
-    --   gradient_from = gradient_to:darken(0.2)
-    -- end
+    -- Darken or lighten depending on whether the active scheme is light/dark,
+    -- so the powerline segments stay visible in both appearances.
+    if window:get_appearance():find('Dark') then
+        gradient_from = gradient_to:lighten(0.2)
+    else
+        gradient_from = gradient_to:darken(0.2)
+    end
 
     -- Yes, WezTerm supports creating gradients, because why not?! Although
     -- they'd usually be used for setting high fidelity gradients on your terminal's
@@ -128,9 +176,16 @@ wezterm.on('update-status', function(window, pane)
         table.insert(elements, { Foreground = { Color = gradient[i] } })
         table.insert(elements, { Text = SOLID_LEFT_ARROW })
 
-        table.insert(elements, { Foreground = { Color = fg } })
+        local seg_text = seg
+        local seg_color = fg
+        if type(seg) == 'table' then
+            seg_text = seg.text
+            seg_color = seg.color or fg
+        end
+
+        table.insert(elements, { Foreground = { Color = seg_color } })
         table.insert(elements, { Background = { Color = gradient[i] } })
-        table.insert(elements, { Text = ' ' .. seg .. ' ' })
+        table.insert(elements, { Text = ' ' .. seg_text .. ' ' })
     end
 
     window:set_right_status(wezterm.format(elements))
@@ -155,6 +210,7 @@ local process_icons = {
     ['nvim'] = wezterm.nerdfonts.custom_neovim,
     ['opencode'] = wezterm.nerdfonts.cod_hubot,
     ['psql'] = '󱤢',
+    ['perl'] = wezterm.nerdfonts.dev_perl,
     ['python3'] = wezterm.nerdfonts.dev_python,
     ['ruby'] = wezterm.nerdfonts.cod_ruby,
     ['ssh'] = wezterm.nerdfonts.md_remote_desktop,
@@ -180,7 +236,7 @@ end
 
 local function get_process(tab)
     if not tab.active_pane or tab.active_pane.foreground_process_name == '' then
-        return nil
+        return nil, nil
     end
 
     local process_name = string.gsub(tab.active_pane.foreground_process_name, '(.*[/\\])(.*)', '%2')
@@ -189,7 +245,8 @@ local function get_process(tab)
         process_name = 'python3'
     end
 
-    return process_icons[process_name] or string.format('[%s]', process_name)
+    local icon = process_icons[process_name] or string.format('[%s]', process_name)
+    return icon, process_name
 end
 
 wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
@@ -203,23 +260,42 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
         end
     end
 
-    local cwd = wezterm.format({
-        { Text = get_current_working_dir(tab) },
-    })
+    local cwd = get_current_working_dir(tab)
+    -- Reuse the same color as the host icon/name on the right status:
+    -- a deterministic color derived from the pane's host.
+    local tab_host = tab.active_pane and tab.active_pane.current_working_dir
+        and tab.active_pane.current_working_dir.host or ''
 
-    local process = get_process(tab)
-    local title = string.format(' %s  %s ', cwd, process) or '[?]'
+    local default_fg = config.resolved_palette and config.resolved_palette.foreground or 'default'
+    -- Per-host accent for the process icon: always the active scheme's brights,
+    -- since the top bar stays dark in both light and dark mode.
+    local host_palette = host_palette_for(config.resolved_palette)
+    local elements = {}
 
-    if has_unseen_output then
-        return {
-            { Foreground = { Color = '#28719c' } },
-            { Text = title },
-        }
+    local process_icon, process_name = get_process(tab)
+
+    -- Color the process icon with the same host color used on the right status.
+    -- Fall back to the default foreground if no host color can be derived, so
+    -- the tab title always renders cleanly.
+    if process_icon then
+        table.insert(elements, { Text = ' ' .. cwd .. '  ' })
+        table.insert(elements, { Foreground = { Color = hostname_color(tab_host, host_palette) or default_fg } })
+        table.insert(elements, { Text = process_icon })
+        table.insert(elements, { Foreground = { Color = default_fg } })
+    else
+        table.insert(elements, { Text = ' ' .. cwd })
     end
 
-    return {
-        { Text = title },
-    }
+    if has_unseen_output then
+        -- Use the active scheme's ANSI blue so the indicator adapts to any
+        -- theme, falling back to the previous hardcoded color if needed.
+        local unseen_fg = (config.resolved_palette and config.resolved_palette.ansi
+            and config.resolved_palette.ansi[4]) or '#28719c'
+        table.insert(elements, { Foreground = { Color = unseen_fg } })
+    end
+
+    table.insert(elements, { Text = ' ' })
+    return elements
 end)
 
 -- and finally, return the configuration to wezterm

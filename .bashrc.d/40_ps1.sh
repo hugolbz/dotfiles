@@ -1,3 +1,7 @@
+if [[ `uname -s` == "MINGW"* ]] || [[ `uname -s` == "MSYS"* ]] ; then
+    # Buggy on windows, and already set in /etc/profile on windows
+    :
+else
 # Set git prompt
 
 # non-printable characters must be encloed inside \[ and \]
@@ -21,4 +25,4 @@ GIT_PS1_SHOWSTASHSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=
 GIT_PS1_SHOWUPSTREAM="auto"
 
-# EOF
+fi

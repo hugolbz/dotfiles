@@ -18,9 +18,8 @@
 # curl -L https://github.com/wez/wezterm/releases/download/nightly/WezTerm-nightly-Ubuntu20.04.AppImage -o ~/.local/bin/wezterm && chmod u+x  ~/.local/bin/wezterm
 
 # Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
-fi
+[ -f /etc/bashrc ] && . /etc/bashrc
+[ -f /etc/bash.bashrc ] && . /etc/bash.bashrc
 
 # User specific aliases and functions
 # If not running interactively, don't do anything
@@ -59,6 +58,29 @@ export LS_COLORS"
     alias egrep='egrep --color=auto'
 fi
 
+function ssh-start-agent {
+    env=~/.ssh/agent.env
+    agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
+    agent_start () {
+        (umask 077; ssh-agent >| "$env")
+        . "$env" >| /dev/null ; }
+
+        agent_load_env
+
+        # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
+        agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+
+        if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+            agent_start
+            # ssh-add
+        elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+            # ssh-add
+            :
+        fi
+
+        unset env
+}
+
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -80,7 +102,25 @@ if [ -d ~/.bash_completion.d ]; then
 fi
 
 function ssh-start-agent {
-    echo "Initialising new SSH agent..."
-    eval `ssh-agent`
-    ssh-add
+    env=~/.ssh/agent.env
+    agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
+    agent_start () {
+        (umask 077; ssh-agent >| "$env")
+        . "$env" >| /dev/null ; }
+
+        agent_load_env
+
+        # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
+        agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+
+        if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+            agent_start
+            # ssh-add
+        elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+            # ssh-add
+            :
+        fi
+
+        unset env
 }
+

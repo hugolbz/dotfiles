@@ -10,8 +10,14 @@ if wezterm.config_builder then
     config = wezterm.config_builder()
 end
 
--- Default shell
-config.default_prog = { '/bin/bash', '-l' }
+-- Check if the target triple contains "windows"
+local is_windows = wezterm.target_triple:find("windows") ~= nil
+if is_windows then
+    config.default_prog = { 'C:\\Program Files\\Git\\bin\\bash.exe', '-l' }
+else
+    config.default_prog = { '/bin/bash', '-l' }
+end
+
 
 -- Change UI
 -- Slightly transparent and blurred background

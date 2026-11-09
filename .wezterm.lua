@@ -96,7 +96,7 @@ end
 -- a palette taken from the active theme's resolved palette instead of
 -- hardcoded hex values. Returns nil when no palette is available.
 local function hostname_color(host, palette)
-    if host == '' or not palette then
+    if not host or host == '' or not palette then
         return nil
     end
     local h = 0
@@ -106,15 +106,26 @@ local function hostname_color(host, palette)
     return palette[(h % #palette) + 1]
 end
 
+-- Resolve the host to color-code: prefer the pane's cwd host (e.g. over SSH),
+-- but fall back to the local machine's hostname. The cwd host is nil on
+-- Windows (drive paths like C:\ have no host), so this keeps color-coding
+-- working there too.
+local function effective_host(cwd_uri)
+    local host = cwd_uri and cwd_uri.host
+    if host and host ~= '' then
+        return host
+    end
+    return wezterm.hostname()
+end
+
 -- status
 local function segments_for_right_status(window, pane)
     local cwd = ""
-    local hostname = ""
     local cwd_uri = pane:get_current_working_dir()
     if cwd_uri then
         cwd = cwd_uri.file_path
-        hostname = cwd_uri.host
     end
+    local hostname = effective_host(cwd_uri)
 
     -- Per-host accents always use the active scheme's brights, since the
     -- top/status bar stays dark in both light and dark mode.
@@ -263,8 +274,7 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
     local cwd = get_current_working_dir(tab)
     -- Reuse the same color as the host icon/name on the right status:
     -- a deterministic color derived from the pane's host.
-    local tab_host = tab.active_pane and tab.active_pane.current_working_dir
-        and tab.active_pane.current_working_dir.host or ''
+    local tab_host = effective_host(tab.active_pane and tab.active_pane.current_working_dir)
 
     local default_fg = config.resolved_palette and config.resolved_palette.foreground or 'default'
     -- Per-host accent for the process icon: always the active scheme's brights,
